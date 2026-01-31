@@ -1,24 +1,23 @@
-.PHONY: build install clean test
+.PHONY: build install clean test demo
 
-build-cli:
-	go build -o goctl-env-template cmd/root.go
+build:
+	go build -o goctl-env-template .
 
 build-plugin:
 	go build -o plugin/main plugin/main.go
 
-build: build-cli build-plugin
-
 install:
-	go install github.com/zdzh/goctl-env-template/cmd@latest
+	go install github.com/zdzh/goctl-env-template@latest
 
 clean:
 	rm -f goctl-env-template
 	rm -f plugin/main
 	rm -f .env.template
 
-test: build-cli
-	./goctl-env-template -c config/config.go -o .env.template
+test:
+	go test -v
 
-demo: test
+demo: build
+	./goctl-env-template -c config/config.go -o .env.template
 	@echo "=== Generated .env.template ==="
 	@cat .env.template

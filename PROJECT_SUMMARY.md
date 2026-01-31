@@ -27,8 +27,7 @@ goctl-env-template 是一个 gozero 插件，用于从 `config/config.go` 中提
 
 ```
 goctl-env-template/
-├── cmd/
-│   └── root.go               # CLI 命令定义
+├── main.go                   # 主入口
 ├── config/
 │   └── config.go             # 示例配置文件
 ├── internal/
@@ -43,8 +42,10 @@ goctl-env-template/
 ├── .gitignore
 ├── CHANGELOG.md              # 更新日志
 ├── EXAMPLES.md               # 使用示例
+├── FEATURES.md               # 功能特性
 ├── IMPLEMENTATION.md         # 实现文档
 ├── Makefile                  # 构建脚本
+├── PROJECT_SUMMARY.md        # 项目总结
 ├── QUICKSTART.md             # 快速入门
 ├── README.md                 # 英文文档
 ├── README_CN.md              # 中文文档
