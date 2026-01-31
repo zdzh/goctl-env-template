@@ -174,7 +174,6 @@ FieldName FieldType `json:"name,env=ENV_VAR,optional,default=value"`
 
 - **语言**: Go 1.21+
 - **依赖**: 
-  - `github.com/zeromicro/go-zero` (go-zero 框架)
   - `go/parser`, `go/ast` (Go 标准库)
   - `go/token` (Go 标准库)
 

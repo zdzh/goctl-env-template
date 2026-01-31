@@ -144,7 +144,6 @@ make clean      # 清理
 ## 🔧 技术栈
 
 - Go 1.21+
-- go-zero 框架
 - Go 标准库 (go/parser, go/ast, go/token)
 
 ## 📦 项目结构
