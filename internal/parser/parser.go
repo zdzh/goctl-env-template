@@ -59,9 +59,18 @@ func (p *Parser) Parse() ([]types.ConfigStruct, error) {
 				continue
 			}
 
+			// 提取结构体注释
+			var structComment string
+			if typeSpec.Doc != nil {
+				structComment = typeSpec.Doc.Text()
+			} else if genDecl.Doc != nil {
+				structComment = genDecl.Doc.Text()
+			}
+
 			configStruct := types.ConfigStruct{
-				Name:   typeSpec.Name.Name,
-				Fields: p.extractFields(structType, typeSpec.Name.Name),
+				Name:    typeSpec.Name.Name,
+				Comment: structComment,
+				Fields:  p.extractFields(structType, typeSpec.Name.Name),
 			}
 
 			if len(configStruct.Fields) > 0 {

@@ -21,43 +21,67 @@ func NewGenerator(structs []types.ConfigStruct) *Generator {
 func (g *Generator) Generate() string {
 	var builder strings.Builder
 
-	groupedFields := g.groupFieldsByStruct()
+	// 按结构体名称分组
+	structMap := g.groupStructsByStruct()
 
-	groupNames := make([]string, 0, len(groupedFields))
-	for name := range groupedFields {
+	groupNames := make([]string, 0, len(structMap))
+	for name := range structMap {
 		groupNames = append(groupNames, name)
 	}
 	sort.Strings(groupNames)
 
-	for _, groupName := range groupNames {
-		fields := groupedFields[groupName]
+	for i, groupName := range groupNames {
+		configStruct := structMap[groupName]
 
-		if len(fields) > 0 {
-			g.generateGroup(&builder, groupName, fields)
+		if len(configStruct.Fields) > 0 {
+			g.generateGroup(&builder, configStruct)
+
+			// 不是最后一个分组时，添加两个空行
+			if i < len(groupNames)-1 {
+				builder.WriteString("\n\n")
+			}
 		}
 	}
 
 	return builder.String()
 }
 
-func (g *Generator) groupFieldsByStruct() map[string][]types.ConfigField {
-	grouped := make(map[string][]types.ConfigField)
+func (g *Generator) groupStructsByStruct() map[string]types.ConfigStruct {
+	structMap := make(map[string]types.ConfigStruct)
 
 	for _, configStruct := range g.structs {
-		for _, field := range configStruct.Fields {
-			grouped[field.Group] = append(grouped[field.Group], field)
+		// 如果已经存在，合并字段
+		if existing, ok := structMap[configStruct.Name]; ok {
+			existing.Fields = append(existing.Fields, configStruct.Fields...)
+			structMap[configStruct.Name] = existing
+		} else {
+			structMap[configStruct.Name] = configStruct
 		}
 	}
 
-	return grouped
+	return structMap
 }
 
-func (g *Generator) generateGroup(builder *strings.Builder, groupName string, fields []types.ConfigField) {
-	groupTitle := g.formatGroupTitle(groupName)
-	builder.WriteString(fmt.Sprintf("\n## %s\n", groupTitle))
+func (g *Generator) generateGroup(builder *strings.Builder, configStruct types.ConfigStruct) {
+	// 添加结构体注释
+	if configStruct.Comment != "" {
+		cleanedComment := g.cleanComment(configStruct.Comment)
+		builder.WriteString(fmt.Sprintf("# %s\n", cleanedComment))
+	}
 
-	for _, field := range fields {
+	groupTitle := g.formatGroupTitle(configStruct.Name)
+	builder.WriteString(fmt.Sprintf("## %s\n", groupTitle))
+
+	for i, field := range configStruct.Fields {
 		g.generateField(builder, field)
+
+		// 不是最后一个字段时，不添加空行
+		if i < len(configStruct.Fields)-1 {
+			// 字段之间不添加空行
+		} else {
+			// 最后一个字段后添加一个空行（与下一组分隔）
+			builder.WriteString("\n")
+		}
 	}
 }
 
@@ -76,7 +100,6 @@ func (g *Generator) generateField(builder *strings.Builder, field types.ConfigFi
 	}
 
 	builder.WriteString(fmt.Sprintf("%s%s=%s\n", varPrefix, field.EnvVar, value))
-	builder.WriteString("\n")
 }
 
 func (g *Generator) formatGroupTitle(groupName string) string {

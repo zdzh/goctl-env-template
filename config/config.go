@@ -1,23 +1,6 @@
 package config
 
-import (
-	"github.com/zeromicro/go-zero/rest"
-)
-
-type Config struct {
-	rest.RestConf
-
-	// Server configuration
-	Name string `json:",env=SERVER_NAME"`
-	Host string `json:",env=SERVER_HOST,default=0.0.0.0"`
-	Port int    `json:",env=SERVER_PORT,default=8888"`
-	Mode string `json:",env=SERVER_MODE,optional,default=dev"`
-
-	Auth  AuthConfig
-	DB    DBConfig
-	Redis RedisConfig
-}
-
+// Auth配置包含JWT认证相关的配置项
 type AuthConfig struct {
 	// JWT secret key
 	Secret string `json:",env=AUTH_SECRET"`
@@ -32,6 +15,7 @@ type AuthConfig struct {
 	Endpoint string `json:",env=AUTH_ENDPOINT,optional"`
 }
 
+// 数据库配置包含MySQL数据库连接相关参数
 type DBConfig struct {
 	// Database host
 	Host string `json:",env=DB_HOST"`
@@ -58,6 +42,7 @@ type DBConfig struct {
 	MaxOpenConns int `json:",env=DB_MAX_OPEN_CONNS,optional,default=100"`
 }
 
+// Redis配置包含Redis缓存连接相关参数
 type RedisConfig struct {
 	// Redis host
 	Host string `json:",env=REDIS_HOST"`

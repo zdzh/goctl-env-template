@@ -11,6 +11,7 @@ type ConfigField struct {
 }
 
 type ConfigStruct struct {
-	Name   string
-	Fields []ConfigField
+	Name    string
+	Comment string
+	Fields  []ConfigField
 }
