@@ -129,11 +129,6 @@ DB_USERNAME=
 # DB_PASSWORD=
 ```
 
-## Using with goctl plugin
-
-```bash
-goctl plugin -p goctl-env-template --config config/config.go --output .env
-```
 
 ## Advanced Features
 

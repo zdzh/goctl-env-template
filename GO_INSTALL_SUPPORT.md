@@ -104,12 +104,6 @@ make build
 ./goctl-env-template -c config/config.go -o .env.template
 ```
 
-### 方式3：goctl 插件
-
-```bash
-goctl plugin -p plugin/main --config config/config.go --output .env
-```
-
 ## 项目结构更新
 
 ```bash

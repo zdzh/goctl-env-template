@@ -1,6 +1,6 @@
 # goctl-env-template
 
-A goctl plugin that extracts environment variables from `config/config.go` and generates a `.env` template file.
+A CLI tool that extracts environment variables from `config/config.go` and generates a `.env` template file.
 
 ## Features
 
@@ -15,6 +15,16 @@ A goctl plugin that extracts environment variables from `config/config.go` and g
 
 ```bash
 go install github.com/zdzh/goctl-env-template@latest
+```
+
+Make sure installed `goctl-env-template` is in your `$PATH`.
+
+## Usage
+
+### As a standalone CLI
+
+```bash
+goctl-env-template -c config/config.go -o .env.template
 ```
 
 Make sure the installed `goctl-env-template` is in your `$PATH`.
@@ -159,18 +169,12 @@ goctl-env-template
 goctl-env-template -c internal/config/config.go -o .env.example
 ```
 
-### Use with goctl plugin
-
-```bash
-goctl plugin -p goctl-env-template --config config/config.go --output .env
-```
 
 ## Project Structure
 
 ```
 goctl-env-template/
-├── cmd/
-│   └── root.go           # CLI command definition
+├── main.go               # Main entry point
 ├── internal/
 │   ├── parser/
 │   │   └── parser.go     # Go AST parser
@@ -178,8 +182,6 @@ goctl-env-template/
 │   │   └── generator.go  # .env template generator
 │   └── types/
 │       └── config.go     # Internal data structures
-├── plugin/
-│   └── main.go           # goctl plugin entry point
 ├── go.mod
 └── README.md
 ```

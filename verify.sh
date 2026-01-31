@@ -16,13 +16,6 @@ else
     make build
 fi
 
-if [ -f "./plugin/main" ]; then
-    echo "✅ 插件已构建"
-else
-    echo "❌ 插件未找到，正在构建..."
-    make build
-fi
-
 echo ""
 
 # 检查文档

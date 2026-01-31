@@ -1,6 +1,6 @@
 # goctl-env-template
 
-一个 goctl 插件，用于从 `config/config.go` 中提取环境变量并生成 `.env` 模板文件。
+一个 CLI 工具，用于从 `config/config.go` 中提取环境变量并生成 `.env` 模板文件。
 
 ## 功能特性
 
@@ -21,16 +21,8 @@ go install github.com/zdzh/goctl-env-template@latest
 
 ## 使用方法
 
-### 作为独立 CLI 工具使用
-
 ```bash
 goctl-env-template -c config/config.go -o .env.template
-```
-
-### 作为 goctl 插件使用
-
-```bash
-goctl plugin -p goctl-env-template --config config/config.go --output .env.template
 ```
 
 ## 配置文件格式
@@ -168,12 +160,6 @@ goctl-env-template
 goctl-env-template -c internal/config/config.go -o .env.example
 ```
 
-### 与 goctl 插件一起使用
-
-```bash
-goctl plugin -p goctl-env-template --config config/config.go --output .env
-```
-
 ### 使用 Makefile
 
 ```bash
@@ -187,8 +173,7 @@ make clean      # 清理构建文件
 
 ```
 goctl-env-template/
-├── cmd/
-│   └── root.go           # CLI 命令定义
+├── main.go               # 主入口
 ├── internal/
 │   ├── parser/
 │   │   └── parser.go     # Go AST 解析器
@@ -196,8 +181,6 @@ goctl-env-template/
 │   │   └── generator.go  # .env 模板生成器
 │   └── types/
 │       └── config.go     # 内部数据结构
-├── plugin/
-│   └── main.go           # goctl 插件入口
 ├── config/
 │   └── config.go         # 示例配置文件
 ├── go.mod

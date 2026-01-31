@@ -65,12 +65,6 @@ go build -o goctl-env-template cmd/root.go
 ./goctl-env-template -c config/config.go -o .env.template
 ```
 
-### As goctl Plugin
-
-```bash
-go build -o plugin/main plugin/main.go
-goctl plugin -p plugin/main --config config/config.go --output .env
-```
 
 ### Using Makefile
 
@@ -116,7 +110,6 @@ DB_USERNAME=
 ✅ Parse doc comments as field descriptions
 ✅ Group configuration by struct nesting level
 ✅ Generate clean, well-commented .env templates
-✅ Compatible with goctl plugin system
 ✅ All lowercase file naming (as requested)
 
 ## Testing

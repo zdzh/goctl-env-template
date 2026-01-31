@@ -81,9 +81,6 @@ goctl-env-template
 
 # 指定配置和输出文件
 goctl-env-template -c internal/config/config.go -o .env.example
-
-# 使用 goctl 插件
-goctl plugin -p goctl-env-template --config config/config.go --output .env
 ```
 
 ## 标签格式

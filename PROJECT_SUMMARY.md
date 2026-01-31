@@ -2,7 +2,7 @@
 
 ## 概述
 
-goctl-env-template 是一个 gozero 插件，用于从 `config/config.go` 中提取环境变量并生成 `.env` 模板文件。
+goctl-env-template 是一个 CLI 工具，用于从 `config/config.go` 中提取环境变量并生成 `.env` 模板文件。
 
 ## 已实现的功能
 
@@ -13,7 +13,6 @@ goctl-env-template 是一个 gozero 插件，用于从 `config/config.go` 中提
 - ✅ 解析文档注释作为字段说明
 - ✅ 按结构体嵌套级别分组配置
 - ✅ 生成清晰、带注释的 `.env` 模板文件
-- ✅ 兼容 goctl 插件系统
 
 ### 2. 注释格式（已更新）
 - ✅ 分组注释使用 `##`
@@ -37,8 +36,6 @@ goctl-env-template/
 │   │   └── parser.go         # Go AST 解析器
 │   └── types/
 │       └── config.go         # 内部数据结构
-├── plugin/
-│   └── main.go               # goctl 插件入口
 ├── .gitignore
 ├── CHANGELOG.md              # 更新日志
 ├── EXAMPLES.md               # 使用示例
@@ -105,13 +102,7 @@ make build
 ./goctl-env-template -c config/config.go -o .env.template
 ```
 
-### 方式2：作为 goctl 插件
-
-```bash
-goctl plugin -p goctl-env-template --config config/config.go --output .env
-```
-
-### 方式3：使用 Makefile
+### 方式2：使用 Makefile
 
 ```bash
 make build      # 构建
@@ -165,7 +156,6 @@ FieldName FieldType `json:"name,env=ENV_VAR,optional,default=value"`
 
 ```
 ✅ CLI 工具已构建
-✅ 插件已构建
 ✅ README.md 存在
 ✅ README_CN.md 存在
 ✅ EXAMPLES.md 存在
@@ -214,7 +204,7 @@ FieldName FieldType `json:"name,env=ENV_VAR,optional,default=value"`
 3. **默认值支持**: 在模板中显示默认值
 4. **可选标记**: 可选字段自动注释
 5. **类型推断**: 根据字段类型生成合适的默认值
-6. **goctl 兼容**: 可作为 goctl 插件使用
+6. **统一格式**: 清晰、易读的 .env 模板格式
 
 ## 开发指南
 

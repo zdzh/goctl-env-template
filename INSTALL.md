@@ -63,18 +63,6 @@ goctl-env-template -c config/config.go -o .env.template
 cat .env.template
 ```
 
-## 作为 goctl 插件使用
-
-如果你需要作为 goctl 插件使用：
-
-```bash
-# 构建插件
-make build-plugin
-
-# 使用插件
-goctl plugin -p plugin/main --config config/config.go --output .env
-```
-
 ## 常见问题
 
 ### Q: 找不到命令 goctl-env-template
